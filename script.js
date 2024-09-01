@@ -2,11 +2,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const leftSection = document.getElementById("leftSection");
   const toggleButton = document.getElementById("toggleButton");
   const closeButton = document.getElementById("closeButton");
-  const expandedContent = document.getElementById("expandedContent");
-  const shrunkContent = document.getElementById("shrunkContent");
   let closeButtonTimeout;
 
-  // Button to expand the section
   toggleButton.addEventListener("click", function () {
     leftSection.classList.add("open");
     leftSection.classList.remove("collapsed");
@@ -17,7 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 300);
   });
 
-  // Button to collapse the section
   closeButton.addEventListener("click", function () {
     leftSection.classList.remove("open");
     leftSection.classList.add("collapsed");
@@ -25,7 +21,6 @@ document.addEventListener("DOMContentLoaded", function () {
     toggleButton.classList.remove("hide");
   });
 
-  // JSON Data
   const taskData = {
     task_id: 18882,
     task_title: "Explore the world of management",
@@ -72,22 +67,18 @@ document.addEventListener("DOMContentLoaded", function () {
     ],
   };
 
-  // Create an asset container
   function createAssetContainer(asset) {
     const assetContainer = document.createElement("div");
     assetContainer.className = "asset-container";
 
-    // Add asset title
     const assetTitle = document.createElement("h4");
     assetTitle.textContent = asset.asset_title;
     assetContainer.appendChild(assetTitle);
 
-    // Add asset description
     const assetDescription = document.createElement("p");
     assetDescription.textContent = asset.asset_description;
     assetContainer.appendChild(assetDescription);
 
-    // Render based on asset type
     if (asset.asset_content_type === "video") {
       const video = document.createElement("iframe");
       video.src = asset.asset_content.trim();
@@ -112,34 +103,27 @@ document.addEventListener("DOMContentLoaded", function () {
     return assetContainer;
   }
 
-  // Render the task and its assets
   function renderTaskAndAssets() {
     const container = document.querySelector(".main");
 
-    // Create a task container
     const taskContainer = document.createElement("div");
     taskContainer.className = "task-container";
 
-    // Add task title
     const taskTitle = document.createElement("h3");
     taskTitle.textContent = taskData.task_title;
     taskContainer.appendChild(taskTitle);
 
-    // Add task description
     const taskDescription = document.createElement("p");
     taskDescription.textContent = taskData.task_description;
     taskContainer.appendChild(taskDescription);
 
-    // Loop through each asset and use the reusable function
     taskData.assets.forEach((asset) => {
       const assetElement = createAssetContainer(asset);
       taskContainer.appendChild(assetElement);
     });
 
-    // Append the task to the main container
     container.appendChild(taskContainer);
   }
 
-  // Call the function to render the task and assets
   renderTaskAndAssets();
 });
